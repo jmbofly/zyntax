@@ -1,5 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { filter, map, first, tap } from 'rxjs/operators';
+import { DataService } from './core/data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +10,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'zyntax';
+  constructor(public router: Router, public route: ActivatedRoute, private data: DataService) {
+  }
+  ngOnInit() {
+  }
 
-  ngOnInit() { }
-  printUser(event) {
-    console.log('user', event)
-  }
-  printError(event) {
-    console.log('user error', event)
-  }
 
 }
 

@@ -5,5 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class PostService {
 
-  constructor() { }
+  constructor(private http: HttpClient, private afs: AngularFirestore) { }
+
+  uploadImageFromEndPoint(imageString: string) {
+    const url: __dirname + `${imageName}`;
+    console.log(url);
+  }
 }
