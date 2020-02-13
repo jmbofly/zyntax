@@ -10,6 +10,8 @@ import { PostsRoutingModule } from './posts-routing.module';
   imports: [
     SharedModule,
     PostsRoutingModule
-  ]
+  ],
+  exports: [PostsComponent],
+  entryComponents: [PostsComponent]
 })
 export class PostsModule { }

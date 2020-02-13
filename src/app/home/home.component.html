@@ -1,14 +1,14 @@
-<div class="container">
+<!-- <div class="container">
     <div class="card-deck">
         <div class="card">
-            <img class="card-img-top" src="holder.js/100x180/" alt="">
+            <img class="card-img-top" src="https://placeholder.com/200" alt="">
             <div class="card-body">
                 <h4 class="card-title">Title</h4>
                 <p class="card-text">Text</p>
             </div>
         </div>
         <div class="card">
-            <img class="card-img-top" src="holder.js/100x180/" alt="">
+            <img class="card-img-top" src="https://placeholder.com/200" alt="">
             <div class="card-body">
                 <h4 class="card-title">Title</h4>
                 <p class="card-text">Text</p>
@@ -16,8 +16,16 @@
         </div>
     </div>
 
-</div>
-<div class="container mt-5">
-    <app-ngx-editor [config]="editorConfig" [placeholder]="'Enter text here...'" [spellcheck]="true"
-        [(ngModel)]="htmlContent"></app-ngx-editor>
-</div>
+</div> -->
+<!-- <div class="container mt-5">
+    <app-ngx-editor #editor [config]="editorConfig" [(ngModel)]="model.htmlContent" [placeholder]="'Enter text here...'"
+        [spellcheck]="true" [(ngModel)]="htmlContent"></app-ngx-editor>
+    <div class="container">
+        <div class="d-flex p-5 justify-content-end">
+            <button class="btn btn-secondary m-1">Cancel</button>
+            <button class="btn btn-primary m-1" (click)="submitPost(editor)">Submit</button>
+        </div>
+    </div>
+</div> -->
+
+<app-posts></app-posts>

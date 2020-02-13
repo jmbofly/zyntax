@@ -34,6 +34,7 @@ export class MastheadComponent implements OnInit {
           break;
         case '/contact':
           this.setMastheadData(contact);
+          break;
         default:
           this.setMastheadData(home);
           break;

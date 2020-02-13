@@ -1,24 +1,63 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../../core/auth.service';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  TemplateRef,
+  ChangeDetectorRef
+}
+
+  from '@angular/core';
+
+import {
+  Router,
+  ActivatedRoute,
+  NavigationExtras
+}
+
+  from '@angular/router';
+
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
+import {
+  AuthService
+}
+
+  from '../../core/auth.service';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
-})
-export class HeaderComponent implements OnInit {
+}
+
+) export class HeaderComponent implements OnInit {
   loggedIn$: any;
   showMenu = false;
-  constructor(public authService: AuthService, public modalService: NgbModal) {
+
+  isLoading$: BehaviorSubject<boolean>;
+  modalRef: BsModalRef;
+  modalConfig = {
+    animated: true
+  };
+
+  constructor(public router: Router, public route: ActivatedRoute, public authService: AuthService, public modalService: BsModalService, private changeDetection: ChangeDetectorRef) {
     this.loggedIn$ = this.authService.loggedIn$;
+    this.isLoading$ = new BehaviorSubject(false);
   }
 
   ngOnInit() {
+    this.loader();
   }
 
-  openAuthModal(content: ElementRef<any>) {
-    const modalRef = this.modalService.open(content);
+  navigateTo(url: string, params?: NavigationExtras) {
+    this.loader({ url, params });
+  }
+
+  openAuthModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, this.modalConfig);
+    this.modalService.onHide.subscribe(results => console.log('modal results', results))
   }
 
   async signOut() {
@@ -27,6 +66,19 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
+  }
+
+  loader(navData?: { url: string, params?: NavigationExtras }) {
+    this.isLoading$.next(true);
+    if (!navData) {
+      setTimeout(() => this.isLoading$.next(false), 2000);
+    } else {
+      this.router.navigate([navData.url], {
+        relativeTo: this.route,
+        ...navData.params
+      }
+      ).then(res => setTimeout(() => this.isLoading$.next(false), 1500))
+    }
   }
 
 
